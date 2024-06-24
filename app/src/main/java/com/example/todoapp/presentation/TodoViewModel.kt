@@ -7,6 +7,7 @@ import com.example.todoapp.data.model.Task
 import com.example.todoapp.domain.TaskRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
@@ -19,14 +20,7 @@ class TodoViewModel @Inject constructor(
     private val applicationContext: Application
 ) : ViewModel() {
 
-    fun getTasks(): StateFlow<List<Task>> {
-        return taskRepository.getAllTasks()
-            .stateIn(
-                initialValue = listOf(),
-                scope = viewModelScope,
-                started = SharingStarted.WhileSubscribed(5000)
-            )
-    }
+    fun getTasks(): Flow<List<Task>> = taskRepository.getAllTasks()
 
     fun addTask(task: Task) {
         viewModelScope.launch(Dispatchers.IO) {

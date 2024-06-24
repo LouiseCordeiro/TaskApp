@@ -6,6 +6,7 @@ plugins {
     id("kotlin-kapt")
     id("androidx.navigation.safeargs.kotlin")
     id("kotlin-android")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -62,6 +63,13 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.1")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
     implementation ("com.google.code.gson:gson:2.8.8")
+    implementation ("io.mockk:mockk-android:1.13.11")
+    testImplementation ("io.mockk:mockk:1.12.0")
+    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.9.0-RC")
+
+    implementation("com.google.firebase:firebase-bom:32.8.0")
+    implementation("com.google.firebase:firebase-crashlytics-ktx")
+    implementation("com.google.firebase:firebase-analytics-ktx")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
