@@ -26,21 +26,9 @@
         android:layout_height="wrap_content"
         app:strokeWidth="1dp"
         app:strokeColor="@color/design_default_color_primary_dark"
-        app:layout_constraintEnd_toStartOf="@id/time_btn"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/new_task_editText"
-        android:text="data" />
-
-    <Button
-        android:id="@+id/time_btn"
-        style="@style/Widget.Material3.Button.ElevatedButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="hora"
-        app:strokeColor="@color/design_default_color_primary_dark"
-        app:layout_constraintStart_toEndOf="@id/calendar_btn"
-        app:layout_constraintBottom_toTopOf="@id/new_task_btn"
-        app:layout_constraintTop_toBottomOf="@id/new_task_editText"
-        app:strokeWidth="1dp" />
+        android:text="Selecione data do lembrete" />
 
     <Button
         android:id="@+id/new_task_btn"

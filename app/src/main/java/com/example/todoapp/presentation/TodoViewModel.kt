@@ -8,9 +8,6 @@ import com.example.todoapp.domain.TaskRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -25,7 +22,6 @@ class TodoViewModel @Inject constructor(
     fun addTask(task: Task) {
         viewModelScope.launch(Dispatchers.IO) {
             taskRepository.add(task)
-            scheduleNotification(task)
         }
     }
 
@@ -39,10 +35,6 @@ class TodoViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             taskRepository.delete(task)
         }
-    }
-
-    private fun scheduleNotification(task: Task) {
-        NotificationScheduler.scheduleTaskReminder(applicationContext, task)
     }
 
 }

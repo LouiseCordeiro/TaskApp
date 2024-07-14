@@ -1,57 +1,86 @@
 package com.example.todoapp.presentation
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.todoapp.R
 import com.example.todoapp.data.model.Task
 import com.example.todoapp.databinding.ItemLayoutBinding
 
-class Adapter(
-    private val onTaskClicked: (Task) -> Unit,
-    private val onCheckBoxClicked: (Task) -> Unit
-) : ListAdapter<Task, Adapter.ViewHolder>(DiffCallback) {
+interface TaskCallBack {
+    fun onTaskClick(view: View, position: Int, isLongClick: Boolean)
+    fun onTaskDelete(position: Int)
+}
 
-    private lateinit var binding: ItemLayoutBinding
+class TaskAdapter(private val taskList: List<Task>) : //ArrayList<TaskResponse>)
+    RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
 
-    inner class ViewHolder(binding: ItemLayoutBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-            fun bind(task: Task) {
-                binding.apply {
-                    taskTitle.text = task.title
-                }
-            }
-        }
+    private lateinit var taskCallBack: TaskCallBack
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        binding = ItemLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+
+        val binding: ItemLayoutBinding = DataBindingUtil.inflate(
+            LayoutInflater.from(parent.context),
+            R.layout.item_layout, parent, false
+        )
 
         return ViewHolder(binding)
+
+    }
+
+    override fun getItemCount(): Int {
+        return taskList.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val currentTask: Task = getItem(position)
+        val task: Task = taskList[position]
 
-        holder.itemView.setOnClickListener {
-            onTaskClicked(currentTask)
+        holder.taskListBinding.task = task
+
+        holder.setTaskCallBack(taskCallBack)
+    }
+
+    fun setTaskCallBack(taskCallBack: TaskCallBack) {
+        this.taskCallBack = taskCallBack
+    }
+
+    class ViewHolder(binding: ItemLayoutBinding) : RecyclerView.ViewHolder(binding.root),
+        View.OnClickListener, View.OnLongClickListener {
+        var taskListBinding: ItemLayoutBinding = binding
+
+        private lateinit var taskCallBack: TaskCallBack
+
+        init {
+            taskListBinding.root.setOnClickListener(this)
+            taskListBinding.root.setOnLongClickListener(this)
+            taskListBinding.checkbox.setOnClickListener {
+                taskCallBack.onTaskDelete(bindingAdapterPosition)
+            }
         }
 
-        binding.checkbox.setOnClickListener {
-            onCheckBoxClicked(currentTask)
+        fun setTaskCallBack(taskCallBack: TaskCallBack) {
+            this.taskCallBack = taskCallBack
         }
 
-        holder.bind(currentTask)
+        override fun onClick(v: View?) {
+
+            if (v != null) {
+                taskCallBack.onTaskClick(v, adapterPosition, false)
+            }
+
+        }
+
+        override fun onLongClick(v: View?): Boolean {
+
+            if (v != null) {
+                taskCallBack.onTaskClick(v, adapterPosition, true)
+            }
+            return false
+        }
+
     }
 
 
-    companion object DiffCallback : DiffUtil.ItemCallback<Task>(){
-        override fun areItemsTheSame(oldItem: Task, newItem: Task): Boolean {
-            return oldItem === newItem
-        }
-
-        override fun areContentsTheSame(oldItem: Task, newItem: Task): Boolean {
-            return oldItem == newItem
-        }
-    }
 }
