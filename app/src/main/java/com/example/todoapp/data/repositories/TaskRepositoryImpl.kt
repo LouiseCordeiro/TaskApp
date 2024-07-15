@@ -1,19 +1,16 @@
-package com.example.todoapp.data
+package com.example.todoapp.data.repositories
 
+import com.example.todoapp.data.database.TaskDao
 import com.example.todoapp.data.model.Task
-import com.example.todoapp.domain.TaskRepository
+import com.example.todoapp.domain.ITaskRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class TaskRepositoryImpl @Inject constructor(
     private val dao: TaskDao
-) : TaskRepository {
+) : ITaskRepository {
     override fun getAllTasks(): Flow<List<Task>> {
         return dao.getAllTasks()
-    }
-
-    override fun getTask(taskId: Int): Flow<Task> {
-        return dao.getTask(taskId)
     }
 
     override suspend fun add(task: Task) {

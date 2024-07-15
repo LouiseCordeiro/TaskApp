@@ -10,7 +10,7 @@ import com.example.todoapp.data.model.Task
 import com.example.todoapp.databinding.ItemLayoutBinding
 
 interface TaskCallBack {
-    fun onTaskClick(view: View, position: Int, isLongClick: Boolean)
+    fun onTaskClick(view: View, position: Int)
     fun onTaskDelete(position: Int)
 }
 
@@ -67,7 +67,7 @@ class TaskAdapter(private val taskList: List<Task>) : //ArrayList<TaskResponse>)
         override fun onClick(v: View?) {
 
             if (v != null) {
-                taskCallBack.onTaskClick(v, adapterPosition, false)
+                taskCallBack.onTaskClick(v, adapterPosition)
             }
 
         }
@@ -75,7 +75,7 @@ class TaskAdapter(private val taskList: List<Task>) : //ArrayList<TaskResponse>)
         override fun onLongClick(v: View?): Boolean {
 
             if (v != null) {
-                taskCallBack.onTaskClick(v, adapterPosition, true)
+                taskCallBack.onTaskClick(v, adapterPosition)
             }
             return false
         }

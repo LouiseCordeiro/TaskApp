@@ -63,9 +63,13 @@ android {
 
 dependencies {
 
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation ("com.google.android.gms:play-services-location:21.0.1")
     implementation("com.google.dagger:hilt-android:2.49")
     implementation(libs.androidx.hilt.common)
     implementation(libs.androidx.hilt.work)
+    testImplementation(libs.testng)
     annotationProcessor(libs.androidx.room.compiler)
     kapt("com.google.dagger:hilt-android-compiler:2.48")
     kapt("androidx.hilt:hilt-compiler:1.0.0")

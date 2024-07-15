@@ -16,6 +16,7 @@
         android:padding="16dp"
         android:layout_margin="16dp"
         android:textSize="18dp"
+        android:inputType="textCapSentences"
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -24,6 +25,7 @@
         style="@style/Widget.Material3.Button.ElevatedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="16dp"
         app:strokeWidth="1dp"
         app:strokeColor="@color/design_default_color_primary_dark"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,6 +36,7 @@
         android:id="@+id/new_task_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="16dp"
         android:text="Salvar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/calendar_btn"

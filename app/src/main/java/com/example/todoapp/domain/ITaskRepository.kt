@@ -4,11 +4,9 @@ import com.example.todoapp.data.model.Task
 import kotlinx.coroutines.flow.Flow
 
 
-interface TaskRepository {
+interface ITaskRepository {
 
     fun getAllTasks() : Flow<List<Task>>
-
-    fun getTask(taskId: Int) : Flow<Task>
 
     suspend fun add(task: Task)
 

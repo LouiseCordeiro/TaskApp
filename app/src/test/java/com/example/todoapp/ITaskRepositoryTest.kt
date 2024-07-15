@@ -1,7 +1,7 @@
 package com.example.todoapp
 
-import com.example.todoapp.data.TaskDao
-import com.example.todoapp.data.TaskRepositoryImpl
+import com.example.todoapp.data.database.TaskDao
+import com.example.todoapp.data.repositories.TaskRepositoryImpl
 import com.example.todoapp.data.model.Task
 import io.mockk.Runs
 import io.mockk.coEvery
@@ -9,7 +9,6 @@ import io.mockk.coVerify
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.just
-import io.mockk.mockk
 import io.mockk.verify
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
@@ -17,7 +16,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 
-class TaskRepositoryTest {
+class ITaskRepositoryTest {
 
     @MockK
     private lateinit var dao: TaskDao
@@ -50,20 +49,6 @@ class TaskRepositoryTest {
         repository.add(task)
 
         coVerify { dao.add(task) }
-    }
-
-    @Test
-    fun `should get task by id from room database`() = runTest {
-        val task = Task(id= 1, title = "teste")
-        coEvery { dao.getTask(0) } returns flowOf(task)
-
-        val result = repository.getTask(0)
-
-        result.collect {
-            assertEquals(task, it   )
-        }
-
-        coVerify { dao.getTask(0) }
     }
 
     @Test

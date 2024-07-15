@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
 class EditFragment : Fragment() {
 
     private val navigationArgs: EditFragmentArgs by navArgs()
-    private val viewModel: TodoViewModel by viewModels()
+    private val viewModel: TaskViewModel by viewModels()
     private var _binding: FragmentEditBinding? = null
     private val binding get() = _binding!!
     private var action = EditFragmentDirections.actionEditFragmentToHomeFragment()

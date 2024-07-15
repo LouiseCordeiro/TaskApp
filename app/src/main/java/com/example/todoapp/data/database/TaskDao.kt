@@ -1,4 +1,4 @@
-package com.example.todoapp.data
+package com.example.todoapp.data.database
 
 import androidx.room.Dao
 import androidx.room.Delete
@@ -13,9 +13,6 @@ interface TaskDao {
 
     @Query("SELECT * from todo_table")
     fun getAllTasks() : Flow<List<Task>>
-
-    @Query("SELECT * from todo_table WHERE id = :taskId")
-    fun getTask(taskId: Int): Flow<Task>
 
     @Insert
     suspend fun add(task: Task)

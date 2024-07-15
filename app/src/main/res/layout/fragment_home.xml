@@ -7,6 +7,30 @@
     android:layout_height="match_parent"
     tools:context=".presentation.MainActivity">
 
+    <ImageView
+        android:id="@+id/weather_icon"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:contentDescription="weather icon"
+        android:src="@drawable/weather_image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone"/>
+    <TextView
+        android:id="@+id/temperature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="26sp"
+        android:layout_marginTop="22dp"
+        android:layout_marginBottom="16dp"
+        android:textColor="#1ab5ed"
+        app:layout_constraintStart_toEndOf="@id/weather_icon"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="23C"
+        android:visibility="gone"/>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -14,7 +38,7 @@
         android:layout_marginBottom="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/temperature"
         app:layout_constraintBottom_toTopOf="@+id/add_button">
 
         <androidx.recyclerview.widget.RecyclerView
