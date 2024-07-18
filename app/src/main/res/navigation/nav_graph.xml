@@ -7,7 +7,7 @@
 
     <argument
         android:name="task"
-        app:argType="com.example.todoapp.data.model.Task" />
+        app:argType="com.example.todoapp.domain.model.Task" />
 
     <fragment
         android:id="@+id/homeFragment"
@@ -24,7 +24,7 @@
         tools:layout="@layout/fragment_edit">
         <argument
             android:name="task"
-            app:argType="com.example.todoapp.data.model.Task" />
+            app:argType="com.example.todoapp.domain.model.Task" />
         <action
             android:id="@+id/action_editFragment_to_homeFragment"
             app:destination="@id/homeFragment" />

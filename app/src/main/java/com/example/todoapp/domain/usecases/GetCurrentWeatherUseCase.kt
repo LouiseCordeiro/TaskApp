@@ -7,5 +7,5 @@ class GetCurrentWeatherUseCase @Inject constructor(
     private val repository: IWeatherRepository
 ) : IGetCurrentWeatherUseCase{
     override suspend fun invoke(lat: Double, lon: Double, apiKey: String) =
-        repository.getCurrentTemperature(lat, lon, apiKey)
+        repository.getCurrentWeather(lat, lon, apiKey)
 }

@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -18,9 +19,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todoapp.data.LocationHelper
-import com.example.todoapp.data.model.Task
+import com.example.todoapp.data.model.TaskEntity
 import com.example.todoapp.databinding.AddTaskBottomSheetBinding
 import com.example.todoapp.databinding.FragmentHomeBinding
+import com.example.todoapp.domain.model.Task
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -60,10 +62,11 @@ class HomeFragment : Fragment(), TaskCallBack {
         layoutManager = LinearLayoutManager(context)
         recyclerView.layoutManager = layoutManager
 
-        if (ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(requireContext(),
+                android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), 1)
         } else {
-            fetchWeatherData()
+            getWeatherData()
         }
 
         return binding.root
@@ -76,7 +79,7 @@ class HomeFragment : Fragment(), TaskCallBack {
             addTaskDialog.show()
         }
 
-        observer()
+        observers()
         setupAddTaskDialog()
     }
 
@@ -86,19 +89,18 @@ class HomeFragment : Fragment(), TaskCallBack {
         recyclerView.adapter = taskAdapter
 
         taskAdapter.setTaskCallBack(this)
-
     }
 
-    private fun fetchWeatherData() {
+    private fun getWeatherData() {
         val apiKey = "10e300a6921860636aabba6d44a6d28b"
-        viewModel.fetchCurrentTemperature(apiKey)
+        viewModel.getCurrentWeather(apiKey)
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == 1) {
             if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                fetchWeatherData()
+                getWeatherData()
             } else {
                 // Permissão negada
             }
@@ -115,10 +117,10 @@ class HomeFragment : Fragment(), TaskCallBack {
         taskAdapter.notifyItemRemoved(position)
     }
 
-    private fun observer() {
+    private fun observers() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.getTasks().collect {
+                viewModel.getAllTasks().collect {
                     taskList = it.toMutableList()
                     setRecyclerView()
                 }
@@ -130,7 +132,8 @@ class HomeFragment : Fragment(), TaskCallBack {
                 viewModel.weatherState.collect { weatherState ->
                     when (weatherState) {
                         is WeatherState.Loading -> {
-                            //TODO
+                            binding.temperature.visibility = View.GONE
+                            binding.weatherIcon.visibility = View.GONE
                         }
                         is WeatherState.Success -> {
                             binding.temperature.visibility = View.VISIBLE
@@ -138,7 +141,8 @@ class HomeFragment : Fragment(), TaskCallBack {
                             binding.temperature.text  = (weatherState.temperature + "ºC")
                         }
                         is WeatherState.Error -> {
-                            //TODO
+                            binding.temperature.visibility = View.GONE
+                            binding.weatherIcon.visibility = View.GONE
                         }
                     }
                 }
@@ -152,11 +156,12 @@ class HomeFragment : Fragment(), TaskCallBack {
         addTaskDialog.setContentView(bindingDialog.root,null)
 
         bindingDialog.calendarBtn.setOnClickListener {
+            val calendar = Calendar.getInstance()
                 val datePicker = DatePickerDialog(requireContext(), { _, year, month, dayOfMonth ->
 
                 val timePicker = TimePickerDialog(requireContext(), { _, hourOfDay, minute ->
 
-                    val calendar = Calendar.getInstance().apply {
+                    calendar.apply {
                         set(Calendar.YEAR, year)
                         set(Calendar.MONTH, month)
                         set(Calendar.DAY_OF_MONTH, dayOfMonth)
@@ -168,9 +173,9 @@ class HomeFragment : Fragment(), TaskCallBack {
                     dueDate = calendar.timeInMillis
                     formattedDateTime = SimpleDateFormat("dd/MM/yyyy - HH:mm", Locale.getDefault()).format(dueDate)
                     bindingDialog.calendarBtn.text = formattedDateTime
-                }, 0, 0, true)
+                }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true)
                 timePicker.show()
-            }, 2024, 5, 15)
+            }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH))
             datePicker.show()
         }
 

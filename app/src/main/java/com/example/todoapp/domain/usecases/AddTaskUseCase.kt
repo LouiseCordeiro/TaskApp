@@ -1,7 +1,7 @@
 package com.example.todoapp.domain.usecases
 
-import com.example.todoapp.data.model.Task
 import com.example.todoapp.domain.ITaskRepository
+import com.example.todoapp.domain.model.Task
 import javax.inject.Inject
 
 class AddTaskUseCase @Inject constructor(

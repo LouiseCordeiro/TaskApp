@@ -39,7 +39,7 @@ class WeatherRepositoryTest {
 
         coEvery { weatherApiService.getCurrentWeather(lat, lon, apiKey) } returns mockResponse
 
-        val temperature = repository.getCurrentTemperature(lat, lon, apiKey)
+        val temperature = repository.getCurrentWeather(lat, lon, apiKey)
 
         assertEquals(temperature,25.78)
     }

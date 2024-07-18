@@ -1,6 +1,7 @@
 package com.example.todoapp
 
-import com.example.todoapp.data.model.Task
+import com.example.todoapp.data.model.TaskEntity
+import com.example.todoapp.domain.model.Task
 import com.example.todoapp.domain.usecases.IAddTaskUseCase
 import com.example.todoapp.domain.usecases.IDeleteTaskUseCase
 import com.example.todoapp.domain.usecases.IGetAllTasksUseCase
@@ -50,7 +51,7 @@ class TaskViewModelTest {
         val tasks = listOf( Task(0, "Test"))
         every { getAllTasksUseCase() } returns flowOf(tasks)
 
-        val result = viewModel.getTasks()
+        val result = viewModel.getAllTasks()
 
         result.collect {
             assertEquals(tasks, it)
@@ -62,12 +63,12 @@ class TaskViewModelTest {
 
     @Test
     fun `should add tasks`() = runTest {
-        val task = Task(0, "Test")
-        coEvery { addTaskUseCase(task) } just Runs
+        val tasks = Task(0, "Test")
+        coEvery { addTaskUseCase(tasks) } just Runs
 
-        viewModel.addTask(task)
+        viewModel.addTask(tasks)
 
-        coVerify { addTaskUseCase(task) }
+        coVerify { addTaskUseCase(tasks) }
     }
 
     @Test

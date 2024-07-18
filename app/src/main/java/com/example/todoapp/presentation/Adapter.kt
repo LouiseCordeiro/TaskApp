@@ -6,15 +6,16 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todoapp.R
-import com.example.todoapp.data.model.Task
+import com.example.todoapp.data.model.TaskEntity
 import com.example.todoapp.databinding.ItemLayoutBinding
+import com.example.todoapp.domain.model.Task
 
 interface TaskCallBack {
     fun onTaskClick(view: View, position: Int)
     fun onTaskDelete(position: Int)
 }
 
-class TaskAdapter(private val taskList: List<Task>) : //ArrayList<TaskResponse>)
+class TaskAdapter(private val taskList: List<Task>) :
     RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
 
     private lateinit var taskCallBack: TaskCallBack
@@ -73,7 +74,6 @@ class TaskAdapter(private val taskList: List<Task>) : //ArrayList<TaskResponse>)
         }
 
         override fun onLongClick(v: View?): Boolean {
-
             if (v != null) {
                 taskCallBack.onTaskClick(v, adapterPosition)
             }
@@ -81,6 +81,5 @@ class TaskAdapter(private val taskList: List<Task>) : //ArrayList<TaskResponse>)
         }
 
     }
-
 
 }

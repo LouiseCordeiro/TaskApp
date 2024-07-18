@@ -1,5 +1,5 @@
 package com.example.todoapp.domain
 
 interface IWeatherRepository {
-    suspend fun getCurrentTemperature(lat: Double, lon: Double, apiKey: String): Double?
+    suspend fun getCurrentWeather(lat: Double, lon: Double, apiKey: String): Double?
 }

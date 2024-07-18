@@ -2,7 +2,7 @@ package com.example.todoapp.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.todoapp.data.model.Task
+import com.example.todoapp.domain.model.Task
 import com.example.todoapp.domain.usecases.IAddTaskUseCase
 import com.example.todoapp.domain.usecases.IDeleteTaskUseCase
 import com.example.todoapp.domain.usecases.IGetAllTasksUseCase
@@ -19,7 +19,7 @@ import java.text.DecimalFormat
 import javax.inject.Inject
 
 sealed class WeatherState {
-    object Loading : WeatherState()
+    data object Loading : WeatherState()
     data class Success(val temperature: String) : WeatherState()
     data class Error(val message: String) : WeatherState()
 }
@@ -37,13 +37,10 @@ class TaskViewModel @Inject constructor(
     private val _weatherState = MutableStateFlow<WeatherState>(WeatherState.Loading)
     val weatherState: StateFlow<WeatherState> get() = _weatherState
 
-    private val _tasks = MutableStateFlow<List<Task>>(emptyList())
-    val tasks: StateFlow<List<Task>> get() = _tasks
-
     private val decimalFormat = DecimalFormat("#")
 
-    fun fetchCurrentTemperature(apiKey: String) {
-        viewModelScope.launch {
+    fun getCurrentWeather(apiKey: String) {
+        viewModelScope.launch(Dispatchers.IO) {
             _weatherState.value = WeatherState.Loading
             try {
                 getLocationUseCase().collect { location ->
@@ -61,7 +58,7 @@ class TaskViewModel @Inject constructor(
         }
     }
 
-    fun getTasks(): Flow<List<Task>> = getAllTasksUseCase()
+    fun getAllTasks(): Flow<List<Task>> = getAllTasksUseCase()
 
     fun addTask(task: Task) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -80,5 +77,4 @@ class TaskViewModel @Inject constructor(
             deleteTaskUseCase(task)
         }
     }
-
 }

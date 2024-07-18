@@ -9,8 +9,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.todoapp.data.model.Task
 import com.example.todoapp.databinding.FragmentEditBinding
+import com.example.todoapp.domain.model.Task
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -36,9 +36,7 @@ class EditFragment : Fragment() {
         setComponents(navigationArgs.task)
         val task: Task? = arguments?.getParcelable(ARG_TASK)
         if (task != null) {
-            // Utilize os dados da tarefa para preencher o fragmento
             binding.editTask.setText(task.title)
-            // Continue preenchendo outros campos conforme necessário
         }
     }
 
