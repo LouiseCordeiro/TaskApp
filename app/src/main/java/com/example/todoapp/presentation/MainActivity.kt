@@ -6,7 +6,6 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.example.todoapp.R
 import com.example.todoapp.databinding.ActivityMainBinding
-import com.example.todoapp.domain.model.Task
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

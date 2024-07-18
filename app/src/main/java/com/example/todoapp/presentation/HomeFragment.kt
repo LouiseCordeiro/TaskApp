@@ -23,7 +23,6 @@ import com.example.todoapp.databinding.AddTaskBottomSheetBinding
 import com.example.todoapp.databinding.FragmentHomeBinding
 import com.example.todoapp.domain.model.Task
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.common.io.Resources
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat

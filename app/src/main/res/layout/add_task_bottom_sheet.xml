@@ -15,7 +15,7 @@
         android:hint="@string/new_task"
         android:padding="16dp"
         android:layout_margin="16dp"
-        android:textSize="18dp"
+        android:textSize="18sp"
         android:inputType="textCapSentences"
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent" />
