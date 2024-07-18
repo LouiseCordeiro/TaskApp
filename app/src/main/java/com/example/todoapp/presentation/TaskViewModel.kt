@@ -49,11 +49,11 @@ class TaskViewModel @Inject constructor(
                         val formattedTemp = decimalFormat.format(temp)
                         _weatherState.value = WeatherState.Success(formattedTemp)
                     } ?: run {
-                        _weatherState.value = WeatherState.Error("Location not available")
+                        _weatherState.value = WeatherState.Error(LOCATION_ERROR)
                     }
                 }
             } catch (e: Exception) {
-                _weatherState.value = WeatherState.Error(e.message ?: "Unknown error")
+                _weatherState.value = WeatherState.Error(e.message ?: UNKNOWN_ERROR)
             }
         }
     }
@@ -76,5 +76,10 @@ class TaskViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             deleteTaskUseCase(task)
         }
+    }
+
+    companion object {
+        const val LOCATION_ERROR = "Location not available"
+        const val UNKNOWN_ERROR = "Unknown error"
     }
 }

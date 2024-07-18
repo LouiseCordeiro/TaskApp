@@ -47,7 +47,8 @@ class EditFragment : Fragment() {
                 viewModel.updateTask(
                     Task(
                         id = task.id,
-                        title = binding.editTask.text.toString()
+                        title = binding.editTask.text.toString(),
+                        date = task.date
                     )
                 )
             }

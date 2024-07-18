@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:hint="Editar tarefa"
+        android:hint="@string/edit_task"
         android:padding="18dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="24dp"
         android:padding="16dp"
-        android:text="Excluir tarefa"
+        android:text="@string/delete_task"
         app:layout_constraintBottom_toTopOf="@+id/save_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="24dp"
         android:padding="16dp"
-        android:text="Salvar tarefa"
+        android:text="@string/save_task"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

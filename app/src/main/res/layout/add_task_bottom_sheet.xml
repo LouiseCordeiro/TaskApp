@@ -12,7 +12,7 @@
         android:id="@+id/new_task_editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Nova tarefa"
+        android:hint="@string/new_task"
         android:padding="16dp"
         android:layout_margin="16dp"
         android:textSize="18dp"
@@ -30,14 +30,14 @@
         app:strokeColor="@color/design_default_color_primary_dark"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/new_task_editText"
-        android:text="Selecione data do lembrete" />
+        android:text="@string/select_date_reminder" />
 
     <Button
         android:id="@+id/new_task_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:text="Salvar"
+        android:text="@string/save_task"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/calendar_btn"
         tools:layout_editor_absoluteX="16dp" />

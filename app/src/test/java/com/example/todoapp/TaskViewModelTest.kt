@@ -1,6 +1,5 @@
 package com.example.todoapp
 
-import com.example.todoapp.data.model.TaskEntity
 import com.example.todoapp.domain.model.Task
 import com.example.todoapp.domain.usecases.IAddTaskUseCase
 import com.example.todoapp.domain.usecases.IDeleteTaskUseCase

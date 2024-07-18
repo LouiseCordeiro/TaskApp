@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todoapp.R
-import com.example.todoapp.data.model.TaskEntity
 import com.example.todoapp.databinding.ItemLayoutBinding
 import com.example.todoapp.domain.model.Task
 

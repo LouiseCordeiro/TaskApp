@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -18,12 +17,13 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.todoapp.R
 import com.example.todoapp.data.LocationHelper
-import com.example.todoapp.data.model.TaskEntity
 import com.example.todoapp.databinding.AddTaskBottomSheetBinding
 import com.example.todoapp.databinding.FragmentHomeBinding
 import com.example.todoapp.domain.model.Task
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.common.io.Resources
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -92,8 +92,7 @@ class HomeFragment : Fragment(), TaskCallBack {
     }
 
     private fun getWeatherData() {
-        val apiKey = "10e300a6921860636aabba6d44a6d28b"
-        viewModel.getCurrentWeather(apiKey)
+        viewModel.getCurrentWeather(API_KEY)
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
@@ -138,7 +137,9 @@ class HomeFragment : Fragment(), TaskCallBack {
                         is WeatherState.Success -> {
                             binding.temperature.visibility = View.VISIBLE
                             binding.weatherIcon.visibility = View.VISIBLE
-                            binding.temperature.text  = (weatherState.temperature + "ºC")
+                            binding.temperature.text  = (
+                                getString(R.string.celsius_temperature, weatherState.temperature)
+                            )
                         }
                         is WeatherState.Error -> {
                             binding.temperature.visibility = View.GONE
@@ -171,7 +172,7 @@ class HomeFragment : Fragment(), TaskCallBack {
                         set(Calendar.MILLISECOND, 0)
                     }
                     dueDate = calendar.timeInMillis
-                    formattedDateTime = SimpleDateFormat("dd/MM/yyyy - HH:mm", Locale.getDefault()).format(dueDate)
+                    formattedDateTime = SimpleDateFormat(DATE_PATTERN, Locale.getDefault()).format(dueDate)
                     bindingDialog.calendarBtn.text = formattedDateTime
                 }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true)
                 timePicker.show()
@@ -193,7 +194,12 @@ class HomeFragment : Fragment(), TaskCallBack {
 
         addTaskDialog.setOnDismissListener {
             bindingDialog.newTaskEditText.text.clear()
-            bindingDialog.calendarBtn.text = "Selecione data do lembrete"
+            bindingDialog.calendarBtn.text = getString(R.string.select_date_reminder)
         }
+    }
+
+    companion object {
+        const val DATE_PATTERN = "dd/MM/yyyy - HH:mm"
+        const val API_KEY = "10e300a6921860636aabba6d44a6d28b"
     }
 }

@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">ToDoApp</string>
+    <string name="select_date_reminder">Selecione data do lembrete</string>
+    <string name="celsius_temperature">%sºC </string>
+    <string name="new_task">Nova tarefa</string>
+    <string name="save_task">Salvar tarefa</string>
+    <string name="edit_task">Editar tarefa</string>
+    <string name="delete_task">Deletar tarefa</string>
+    <string name="weather_icon_desc">Ícone clima</string>
+    <string name="task">Tarefa</string>
+    <string name="add_task">Adicionar tarefa</string>
 </resources>

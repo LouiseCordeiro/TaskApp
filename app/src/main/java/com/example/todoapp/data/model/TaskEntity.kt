@@ -1,11 +1,9 @@
 package com.example.todoapp.data.model
 
-import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.todoapp.domain.model.Task
-import kotlinx.parcelize.Parcelize
 
 @Entity(tableName = "todo_table")
 data class TaskEntity(

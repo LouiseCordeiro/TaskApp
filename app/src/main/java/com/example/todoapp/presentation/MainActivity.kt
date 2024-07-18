@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.example.todoapp.R
-import com.example.todoapp.data.model.TaskEntity
 import com.example.todoapp.databinding.ActivityMainBinding
 import com.example.todoapp.domain.model.Task
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,14 +19,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        val task: Task? = intent.getParcelableExtra("TASK")
-        if (task != null) {
-            val fragment = EditFragment.newInstance(task)
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.navHostFragmentContainerView, fragment)
-                .commit()
-        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
