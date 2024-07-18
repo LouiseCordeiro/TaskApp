@@ -1,11 +1,18 @@
 Simple app created to study, still under construction (more features to come)
 
-Listing API Pokemons app using:  
+App create to manage tasks and to get current weather using OpenWeatherMap api.
+Stack:
+* Retrofit
 * Room
 * Flow
 * Coroutines
 * MVVM
 * Clean Arch
 * Hilt
+* Unit tests
+* Firebase crashlytics
 
-  ![taskapp (1)](https://github.com/LouiseCordeiro/TaskApp/assets/106567020/cb0123d1-356e-42d2-9938-53999c3a8f6d)
+![task_app](https://github.com/user-attachments/assets/c774d6db-ca4a-470a-9a99-a4d0558d174a)
+
+ 
+
